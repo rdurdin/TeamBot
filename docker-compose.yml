@@ -10,6 +10,9 @@ services:
       - teamagent-data:/app/web/backend/data
     environment:
       - DATABASE_PATH=/app/web/backend/data/teamagent.db
+      - MODEL_API=${MODEL_API}
+      - USER_KEY=${USER_KEY}
+      - MODEL_ID=${MODEL_ID:-claude-sonnet-4-6}
     restart: unless-stopped
 
   frontend:
