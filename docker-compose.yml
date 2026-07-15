@@ -1,0 +1,27 @@
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: web/Containerfile.backend
+    container_name: teamagent-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - teamagent-data:/app/web/backend/data
+    environment:
+      - DATABASE_PATH=/app/web/backend/data/teamagent.db
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: web/Containerfile.frontend
+    container_name: teamagent-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  teamagent-data:

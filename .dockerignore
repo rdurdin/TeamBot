@@ -1,0 +1,11 @@
+**/__pycache__
+**/*.pyc
+**/node_modules
+**/venv
+**/.git
+**/*.log
+**/*.pid
+**/BackUp
+**/test_data
+**/tests
+**/.claude

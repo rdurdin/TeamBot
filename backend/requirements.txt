@@ -1,0 +1,8 @@
+# Use latest versions that support Python 3.14
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+websockets>=13.1
+pydantic>=2.10.0
+python-multipart>=0.0.17
+annotated-types>=0.7.0
+pydantic-core>=2.27.0
