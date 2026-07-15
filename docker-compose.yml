@@ -1,15 +1,15 @@
 services:
   backend:
     build:
-      context: ..
-      dockerfile: web/Containerfile.backend
+      context: .
+      dockerfile: Containerfile.backend
     container_name: teamagent-backend
     ports:
       - "8000:8000"
     volumes:
-      - teamagent-data:/app/web/backend/data
+      - teamagent-data:/app/data
     environment:
-      - DATABASE_PATH=/app/web/backend/data/teamagent.db
+      - DATABASE_PATH=/app/data/teamagent.db
       - MODEL_API=${MODEL_API}
       - USER_KEY=${USER_KEY}
       - MODEL_ID=${MODEL_ID:-claude-sonnet-4-6}
@@ -17,8 +17,8 @@ services:
 
   frontend:
     build:
-      context: ..
-      dockerfile: web/Containerfile.frontend
+      context: .
+      dockerfile: Containerfile.frontend
     container_name: teamagent-frontend
     ports:
       - "3000:3000"

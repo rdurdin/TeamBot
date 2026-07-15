@@ -4,18 +4,21 @@ import { FitAddon } from 'xterm-addon-fit'
 import 'xterm/css/xterm.css'
 import './Terminal.css'
 
-const WELCOME_MESSAGE = `
-╔═══════════════════════════════════════════════════════════╗
-║           TeamAgent Collaborative Terminal                ║
-║  Type 'help' for commands or try these examples:         ║
-║                                                            ║
-║  • ask <question>    - Ask a question                     ║
-║  • search <query>    - Search team knowledge              ║
-║  • recent            - View recent Q&A                    ║
-║  • memory            - View memory entries                ║
-╚═══════════════════════════════════════════════════════════╝
-
-`
+const WELCOME_LINES = [
+  '',
+  '\x1b[1;36m  TeamAgent Collaborative Terminal\x1b[0m',
+  '\x1b[90m  ---------------------------------\x1b[0m',
+  '',
+  '\x1b[37m  Commands:\x1b[0m',
+  '\x1b[32m    ask \x1b[90m<question>\x1b[0m      Ask a question',
+  '\x1b[32m    ai \x1b[90m<question>\x1b[0m       Get an AI response',
+  '\x1b[32m    search \x1b[90m<query>\x1b[0m      Search team knowledge',
+  '\x1b[32m    log \x1b[90m<info>\x1b[0m          Save to team memory',
+  '\x1b[32m    recent\x1b[0m               View recent Q&A',
+  '\x1b[32m    memory\x1b[0m               View memory entries',
+  '\x1b[32m    help\x1b[0m                 Show all commands',
+  '',
+]
 
 function Terminal({ engineerId, engineerName, teamId, onCommand, color }) {
   const terminalRef = useRef(null)
@@ -62,7 +65,7 @@ function Terminal({ engineerId, engineerName, teamId, onCommand, color }) {
     fitAddonRef.current = fitAddon
 
     // Welcome message
-    term.writeln(WELCOME_MESSAGE)
+    WELCOME_LINES.forEach(line => term.writeln(line))
     writePrompt()
 
     // Handle input
@@ -121,21 +124,24 @@ function Terminal({ engineerId, engineerName, teamId, onCommand, color }) {
 
     // Handle built-in commands
     if (command === 'help') {
-      term.writeln('\r\nAvailable commands:')
-      term.writeln('  ask <question>     - Ask a question to the team')
-      term.writeln('  ai <question>      - Get AI response (if configured)')
-      term.writeln('  search <query>     - Search team knowledge base')
-      term.writeln('  recent             - Show recent questions')
-      term.writeln('  memory             - Show memory entries')
-      term.writeln('  clear              - Clear terminal')
-      term.writeln('  help               - Show this help')
+      term.writeln('')
+      term.writeln('\x1b[1;37m  Commands:\x1b[0m')
+      term.writeln('\x1b[32m    ask \x1b[90m<question>\x1b[0m      Ask a question to the team')
+      term.writeln('\x1b[32m    ai \x1b[90m<question>\x1b[0m       Get an AI response')
+      term.writeln('\x1b[32m    search \x1b[90m<query>\x1b[0m      Search team knowledge')
+      term.writeln('\x1b[32m    log \x1b[90m<info>\x1b[0m          Save to team memory')
+      term.writeln('\x1b[32m    memories \x1b[90m<query>\x1b[0m    Search archived memories')
+      term.writeln('\x1b[32m    recent\x1b[0m               View recent Q&A')
+      term.writeln('\x1b[32m    memory\x1b[0m               View memory entries')
+      term.writeln('\x1b[32m    clear\x1b[0m                Clear terminal')
+      term.writeln('\x1b[32m    help\x1b[0m                 Show this help')
       writePrompt()
       return
     }
 
     if (command === 'clear') {
       term.clear()
-      term.writeln(WELCOME_MESSAGE)
+      WELCOME_LINES.forEach(line => term.writeln(line))
       writePrompt()
       return
     }
