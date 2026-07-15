@@ -36,6 +36,28 @@ Interactive terminal-style web interface showcasing TeamAgent's collaborative me
 
 ## Quick Start
 
+### Docker Compose (Recommended)
+
+The easiest way to run the full stack:
+
+```bash
+docker compose up --build
+```
+
+This starts both services:
+- **Backend** (FastAPI) on `http://localhost:8000`
+- **Frontend** (React + Vite) on `http://localhost:3000`
+
+Data is persisted in a `teamagent-data` Docker volume.
+
+To stop:
+
+```bash
+docker compose down
+```
+
+### Manual Setup
+
 ### 1. Install Backend Dependencies
 
 ```bash
