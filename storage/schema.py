@@ -18,10 +18,14 @@ def get_database_path(custom_path: Optional[str] = None) -> Path:
     if custom_path:
         return Path(custom_path)
 
-    # Default to data/ directory in TeamAgent root
+    # Default to data/ directory in TeamAgent root, fall back to /tmp
     teamagent_root = Path(__file__).parent.parent
     data_dir = teamagent_root / "data"
-    data_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        data_dir.mkdir(parents=True, exist_ok=True)
+    except PermissionError:
+        data_dir = Path("/tmp/teamagent-data")
+        data_dir.mkdir(parents=True, exist_ok=True)
 
     return data_dir / "teamagent.db"
 
